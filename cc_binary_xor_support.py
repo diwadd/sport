@@ -16,29 +16,32 @@ def number_of_xors(p):
 
     n = len(p)
     for i in range(n):
-        t1 = p[i]
-        
+        perms1 = list(set(permutations(p[i])))
         for j in range(n):
-            print(f"{t1} -> {p[j]}", end="")
-            perms = list(set(permutations(p[j])))
+            print(f"{p[i]} -> {p[j]}", end="")
+            perms2 = list(set(permutations(p[j])))
             n_xors = set()
-            for k in range(len(perms)):
-                t2 = perms[k]
-                xor = tuple_xor(t1, t2)
-                n_xors.add(xor)
+            for a in range(len(perms1)):
+                t1 = perms1[a]
+                for k in range(len(perms2)):
+                    t2 = perms2[k]
+                    xor = tuple_xor(t1, t2)
+                    n_xors.add(xor)
             print(f" XORs: {len(n_xors)}")
 
 
 if __name__ == "__main__":
     print("Binary XOR support")
 
-    n = 20
+    n = 16
     o = [1 for i in range(n)]
     z = [0 for i in range(n)]
 
-    p = None
-    m = 6
-    if m < n/2:
-        p = list(set(combinations(o + z, m)))
-    # print(set(list(p)))
-    number_of_xors(p)
+    for m in range(1, 7):
+        print(f"Number of XORs for m = {m}")
+        p = None
+        # m = 6
+        if m < n/2:
+            p = list(set(combinations(o + z, m)))
+        # print(set(list(p)))
+        number_of_xors(p)
