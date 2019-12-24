@@ -14,22 +14,45 @@ int main() {
     int t;
     cin >> t;    
     for(int i = 0; i < t; i++) {
-        int x;
+        long long x;
         cin >> x;
 
         string s;
         cin >> s;
         
-        int index = 1;
-        while(index < x) {
-            int n = s[index] - '0';
-            for(int i = 0; i < n; i++)
-                s = s + s.substr(index);
+
+        long long index = 0;
+        long long st = s.length();
+        while(s.length() < x) {
+            long long n = s[index] - '0';
+            string suffix = s.substr(index+1);
+            for(long long i = 1; i <= n-1; i++) {
+                // cout << "i = " << i << " " << suffix << endl;
+                s = s + suffix;
+            }
+
+            // cout << "n: " << n << " s[index]:" << s[index] << " index: " << index << endl << s << endl;
             index++;
-            cout << s << endl;
         }
+        long long res = s.length();
 
+        // cout << "index: " << index << endl;
+        index = 0;
+        while(index < x) {
+            long long n = s[index] - '0';
+ 
+            long long suffix_length = st - index - 1;
+            // cout << "n: " << n << " s[index]:" << s[index] << " index: " << index << " suffix_length: " << suffix_length << endl;
+            for(long long i = 1; i <= n-1; i++) {
+                // cout << "i = " << i << endl;
+                st = st + suffix_length;
+            }
 
+            index++;
+            // cout << "st: " << st << endl;
+
+        }
+        cout << st % (1000000000+7) << endl;
     }
 
 
