@@ -7,6 +7,8 @@ using namespace std;
 
 int main() {
 
+    const unsigned long long MOD7 = 1000000000+7;
+
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
@@ -14,45 +16,40 @@ int main() {
     int t;
     cin >> t;    
     for(int i = 0; i < t; i++) {
-        long long x;
+        unsigned long long x;
         cin >> x;
 
-        string s;
-        cin >> s;
+        string ss;
+        cin >> ss;
         
 
-        long long index = 0;
-        long long st = s.length();
-        while(s.length() < x) {
-            long long n = s[index] - '0';
-            string suffix = s.substr(index+1);
-            for(long long i = 1; i <= n-1; i++) {
-                // cout << "i = " << i << " " << suffix << endl;
-                s = s + suffix;
+        vector<char> s(ss.begin(), ss.end());
+
+        unsigned long long index = 0;
+        unsigned long long st = s.size() % MOD7;
+        while(s.size() < x) {
+            unsigned long long n = s[index] - '0';
+            vector<char> substr(s.begin() + index + 1, s.end()); // s.substr(index+1);
+            for(unsigned long long i = 1; i <= n-1; i++) {
+                s.insert(s.end(), substr.begin(), substr.end());
             }
 
-            // cout << "n: " << n << " s[index]:" << s[index] << " index: " << index << endl << s << endl;
             index++;
         }
-        long long res = s.length();
 
-        // cout << "index: " << index << endl;
         index = 0;
         while(index < x) {
-            long long n = s[index] - '0';
+            unsigned long long n = s[index] - '0';
  
-            long long suffix_length = st - index - 1;
-            // cout << "n: " << n << " s[index]:" << s[index] << " index: " << index << " suffix_length: " << suffix_length << endl;
-            for(long long i = 1; i <= n-1; i++) {
-                // cout << "i = " << i << endl;
-                st = st + suffix_length;
+            unsigned long long suffix_length = st - index - 1;
+            for(unsigned long long i = 1; i <= n-1; i++) {
+                st = st + suffix_length % MOD7;
             }
 
             index++;
-            // cout << "st: " << st << endl;
 
         }
-        cout << st % (1000000000+7) << endl;
+        cout << st % MOD7 << endl;
     }
 
 
