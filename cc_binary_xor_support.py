@@ -27,17 +27,22 @@ def number_of_xors(p):
                     t2 = perms2[k]
                     xor = tuple_xor(t1, t2)
                     n_xors.add(xor)
-            print(f" XORs: {len(n_xors)}")
 
+            print(f" XORs: {len(n_xors)}", end="")
+
+            unique_xor_perm = set()
+            for x in n_xors:
+                unique_xor_perm.add(tuple(sorted(x)))
+            print(f" perms: {len(unique_xor_perm)}")
 
 if __name__ == "__main__":
     print("Binary XOR support")
 
-    n = 16
+    n = 21
     o = [1 for i in range(n)]
     z = [0 for i in range(n)]
 
-    for m in range(1, 7):
+    for m in range(1, 10):
         print(f"Number of XORs for m = {m}")
         p = None
         # m = 6
