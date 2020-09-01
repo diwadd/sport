@@ -11,20 +11,18 @@ if (N == 1):
 else:
     
     print(f"1 {N}")
-    s = ""
 
+    s_vec = ["" for _ in range(N)]
     for n in range(0, N-1):
-            s = s + str(-a_vec[n]*N) + " "
-    s = s + "0"
-    print(s)
+            s_vec[n] = str(-a_vec[n]*N)
+    s_vec[N-1] = "0"
+    print(" ".join(s_vec))
 
     print(f"1 {N-1}")
-    s = ""
+    s_vec = ["" for _ in range(N-1)]
     for n in range(0, N-1):
-        if(n != N-2):
-            s = s + str(a_vec[n]*(N-1)) + " "
-        else:
-            s = s + str(a_vec[n]*(N-1))
-    print(s)
+            s_vec[n] = str(a_vec[n]*(N-1))
+
+    print(" ".join(s_vec))
 
     print(f"{N} {N}\n{-a_vec[N-1]}")
