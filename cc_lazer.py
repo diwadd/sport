@@ -1,11 +1,8 @@
 from collections import namedtuple
 
-MAX_N = 100000 + 7
-
 class FenwickTree:
     def __init__(self, n):
         self.t = [0 for _ in range(n+1)]
-        self.local_n = None
 
     def sum(self, index):
         res = 0
@@ -18,26 +15,22 @@ class FenwickTree:
 
     def update(self, index, value):
         # print(f"Updating tree... for index: {index} and value {value}")
-        while index < self.local_n:
+        while index < len(self.t):
             # print(f"index: {index}")
             self.t[index] += value
             index += (index & (-index))
 
 t = int(input())
 
-
-q_vec = [[0, 0, 0] for _ in range(MAX_N)]
-res = [0 for _ in range(MAX_N)]
-ft = FenwickTree(MAX_N)
-
 for _ in range(t):
     nq = input().split(" ")
     n = int(nq[0])
     q = int(nq[1])
 
-    ft.local_n = n + 1
-    a_vec = [int(a) for a in input().split(" ")]
+    a_vec = input().split(" ")
+    a_vec = [int(a) for a in a_vec]
 
+    q_vec = [[0, 0, 0] for _ in range(q)]
     for i in range(q):
         x1x2y = input().split(" ")
 
@@ -61,6 +54,8 @@ for _ in range(t):
     events.sort(key=lambda x: (x[0], x[1]))
     # print(events)
 
+    ft = FenwickTree(n-1)
+    res = [0 for _ in range(q)]
     for e in events:
         # print(f"e: {e}")
         if e[1] == 1:
@@ -71,9 +66,8 @@ for _ in range(t):
             res[e[2]] = ft.sum(q_vec[e[2]][1]-1) - ft.sum(q_vec[e[2]][0]-1)
         elif e[1] == 3:
             ft.update(e[2]+1, -1)
-            # print(ft.t)
 
-    for i in range(q):
-        print(res[i])
+    for r in res:
+        print(r)
 
 
