@@ -52,12 +52,13 @@ for _ in range(t):
         events.append(e_lazer)
 
     events.sort(key=lambda x: (x[0], x[1]))
-    # print(events)
+    print(events)
 
     ft = FenwickTree(n-1)
     res = [0 for _ in range(q)]
     for e in events:
         # print(f"e: {e}")
+        print(ft.t)
         if e[1] == 1:
             ft.update(e[2]+1, 1)
             # print(ft.t)
