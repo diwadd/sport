@@ -5,17 +5,17 @@ cwd = os.getcwd()
 files = glob.glob(cwd + "\\*")
 
 valid_extensions = [".cpp", ".go", ".py"]
-invalid_problem_names = ["cf_custom", "compare_solutions", "check_number_of_problems"]
+invalid_prefixes = ["cf_", "tc_", "cc_", "co_", "gks_"]
 d = set()
 for i in range(len(files)):
 
     s = files[i]
     problem_name, extension = os.path.splitext(s)
 
-    is_ok = True
-    for ipn in invalid_problem_names:
+    is_ok = False
+    for ipn in invalid_prefixes:
         if ipn in problem_name:
-            is_ok = False
+            is_ok = True
             break
 
     if is_ok == False:
