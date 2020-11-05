@@ -26,7 +26,22 @@ func main() {
 
 	for t := 0; t < T; t++ {
 
-		// Solution
+		var l, r int64
+		scanf("%d %d\n", &l, &r)
+
+		var a int64 = r + 1
+
+		var l_left_side float64 = float64(l % a)
+		var l_right_side float64 = float64(float64(a)/2.0)
+
+		var r_left_side float64 = float64(r % a)
+		var r_right_side = float64(float64(a)/2.0)
+
+		if l_left_side >= l_right_side && r_left_side >= r_right_side {
+			printf("YES\n")
+		} else {
+			printf("NO\n")
+		}
 
 	}
 
