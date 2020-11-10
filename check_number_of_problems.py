@@ -2,7 +2,7 @@ import glob
 import os
 
 cwd = os.getcwd()
-files = glob.glob(cwd + "\\*")
+files = glob.glob(cwd + "/*")
 
 valid_extensions = [".cpp", ".go", ".py"]
 invalid_prefixes = ["cf_", "tc_", "cc_", "co_", "gks_"]
