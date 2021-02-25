@@ -48,7 +48,9 @@ c_ones_2 = copy.deepcopy(c_ones)
 c_twos_2 = copy.deepcopy(c_twos)
 
 res = [0 for _ in range(0, m_max + 1)]
-res[1] = c_ones_2.pop()
+
+if len(c_ones_2) > 0:
+    res[1] = c_ones_2.pop()
 
 even_sum = 0
 for m in range(2, m_max + 1, 2):
