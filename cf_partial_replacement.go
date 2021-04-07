@@ -38,20 +38,24 @@ func main() {
 			if s[i] == '*' {
 				res[i] = 1
 				index = i
-				// printf("index: %d\n", index)
 				break
 			}
 		}
 
-		for i := index; i < n; i++ {
-			// printf("I: %d\n", i)
-			for j := min_int(n - 1, i + k); j >= i; j-- {
+		for i := index+1; i < n; i++ {
+
+			var max_index = -1
+
+			for j := i; j <= min_int(n-1, i+k-1); j++ {
 				if s[j] == '*' {
-					// printf("-> j: %d\n", j)
-					res[j] = 1
-					i = i + k - 1
-					break
+					max_index = j
 				}
+			}
+
+			
+			if max_index != -1 {
+				res[max_index] = 1
+				i = max_index
 			}
 		}
 
@@ -67,15 +71,12 @@ func main() {
 			}
 		}
 
-
 		var ans int = 0
 		for i := 0; i < n; i++ {
 			if res[i] == 1 {
 				ans = ans + 1
 			}
-			// printf("%d ", res[i])
 		}
-		// printf("\n")
 		printf("%d\n", ans)
 
 	}
