@@ -5,12 +5,6 @@ typedef long long int lli;
 typedef unsigned long long int ulli;
 typedef long double ld;
 
-void left_just(string &s, int n, char c = ' ') {
-    while(s.length() < n) {
-        s = c + s;
-    }
-}
-
 template<typename T> void print_vector(vector<T> &vec) {
 
     int n = vec.size();
@@ -22,79 +16,6 @@ template<typename T> void print_vector(vector<T> &vec) {
     }
     cout << "\n";
 }
-
-template<typename T> void print_matrix(vector<vector<T>> &mat) {
-    for(int i = 0; i < mat.size(); i++) {
-        print_vector(mat[i]);
-    }
-}
-
-int left_right(int xa, int ya, int xb, int yb, int xc, int yc) {
-    return (xb - xa) * (yc - ya) - (xc - xa) * (yb - ya);
-}
-
-// int depth(vector<int> &a_vec) {
-
-//     int N = a_vec.size();
-
-//     if(N <= 2)
-//         return 0;
-
-//     vector<pair<int, int>> points(N, pair<int,int>());
-
-//     for(int i = 0; i < N; i++) {
-//         points[i] = make_pair(i, a_vec[i]);
-//     }
-
-//     vector<pair<int,int>> stack;
-//     stack.reserve(N);
-
-//     stack.push_back(points[N-1]);
-//     stack.push_back(points[N-2]);
-
-//     for(int i = N - 3; i >= 0; i--) {
-
-//         while(true) {
-
-//             int M = stack.size();
-//             pair<int, int> pb = stack[M - 1];
-//             pair<int, int> pa = stack[M - 2];
-
-//             // cout << "pa: " << pa.first << " " << pa.second << endl;
-//             // cout << "pb: " << pb.first << " " << pb.second << endl;
-
-//             int xa = pa.first;
-//             int ya = pa.second;
-
-//             int xb = pb.first;
-//             int yb = pb.second;
-
-//             int xc = points[i].first;
-//             int yc = points[i].second;
-
-//             int t = left_right(xa, ya, xb, yb, xc, yc);
-
-//             // cout << "xc: " << xc << " yc: " << yc << " t: " << t << endl;
-
-//             if(M > 2 && t <= 0) {
-//                 stack.pop_back();
-//             } else {
-//                 break;
-//             }
-
-//         }
-//         stack.push_back(points[i]);
-
-//         // if(t) {
-//         // }
-//     }
-
-//     for (int i = 0; i < stack.size(); i++) {
-//         // cout << stack[i].first << " " << stack[i].second << endl;
-//     }
-
-//     return 0;
-// }
 
 void squeeze_input(vector<int> &non_squeezed_input, vector<int> &input) {
 
@@ -124,7 +45,6 @@ int deep(vector<int> &non_squeezed_input) {
     for(int i = 0; i < input.size(); i++) {
         a_vec[i+1] = input[i];
     }
-    // print_vector(a_vec);
 
     vector<int> peaks_location;
     vector<int> peaks_type;
@@ -141,13 +61,9 @@ int deep(vector<int> &non_squeezed_input) {
         }
     }
 
-    // print_vector(peaks_location);
-    // print_vector(peaks_type);
-
     int d = 0;
     for(int i = 0; i < peaks_location.size(); i++) {
         
-        // cout << "i: " << i << " peaks_location[i]: " << peaks_location[i] << endl;
         if(peaks_type[i] == -1)
             continue;
         
@@ -156,21 +72,15 @@ int deep(vector<int> &non_squeezed_input) {
         int min_delta = numeric_limits<int>::max();
         for(int j = i + 1; j < peaks_location.size(); j++) {
             
-            // cout << "j: " << j << " peaks_location[j]: " << peaks_location[j] << endl;
             int second_peak = a_vec[peaks_location[j]];
             if(peaks_type[j] == 1 && second_peak >= first_peak) {
 
-                // cout << "will loop from " << peaks_location[j] << " to " << peaks_location[i] << endl;
-                // cout << "first peak: " << first_peak << " second_peak: " << second_peak << endl;
-
                 int delta = min(first_peak, second_peak) - min_delta;
-                // cout << "k: " << k << " minimum: " << a_vec[peaks_location[k]] << " delta: " << delta << endl;
                 if (delta > d) {
                     d = delta;
                 }
 
                 i = j - 1;
-                // cout << "new i set to: " << i << endl;
                 break;
             } else if(peaks_type[j] == -1) {
                 if(second_peak < min_delta) {
@@ -181,14 +91,10 @@ int deep(vector<int> &non_squeezed_input) {
                 break;
             }
         }
-        // cout << "closing i: " << i << endl;
     }
-
-    // cout << " --- --- --- --- " << endl;
 
     for(int i = peaks_location.size()-1; i >= 0; i--) {
         
-        // cout << "i: " << i << " peaks_location[i]: " << peaks_location[i] << endl;
         if(peaks_type[i] == -1)
             continue;
         
@@ -197,20 +103,15 @@ int deep(vector<int> &non_squeezed_input) {
         int min_delta = numeric_limits<int>::max();
         for(int j = i - 1; j >= 0; j--) {
             
-            // cout << "j: " << j << " peaks_location[j]: " << peaks_location[j] << endl;
             int second_peak = a_vec[peaks_location[j]];
             if(peaks_type[j] == 1 && second_peak >= first_peak) {
                 
-                // cout << "will loop from " << peaks_location[j] << " (j: " << j << ") to " << peaks_location[i] << "(i: " << i<< ")" << endl;
-                // cout << "first peak: " << first_peak << " second_peak: " << second_peak << endl;
                 int delta = min(first_peak, second_peak) - min_delta;
-                // cout << "k: " << k << " minimum: " << a_vec[peaks_location[k]] << " delta: " << delta << endl;
                 if (delta > d) {
                     d = delta;
                 }
 
                 i = j + 1;
-                // cout << "new i set to: " << i << endl;
                 break;
             }  else if(peaks_type[j] == -1) {
                 if(second_peak < min_delta) {
@@ -222,10 +123,8 @@ int deep(vector<int> &non_squeezed_input) {
             }
 
         }
-        // cout << "closing i: " << i << endl;
     }
 
-    // cout << "d: " << d << endl;
     return d;
 }
 
