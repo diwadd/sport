@@ -153,30 +153,33 @@ int deep(vector<int> &non_squeezed_input) {
         
         int first_peak = a_vec[peaks_location[i]];
 
-
+        int min_delta = numeric_limits<int>::max();
         for(int j = i + 1; j < peaks_location.size(); j++) {
             
             // cout << "j: " << j << " peaks_location[j]: " << peaks_location[j] << endl;
             int second_peak = a_vec[peaks_location[j]];
-            int min_peak = min(first_peak, second_peak);
             if(peaks_type[j] == 1 && second_peak >= first_peak) {
 
                 // cout << "will loop from " << peaks_location[j] << " to " << peaks_location[i] << endl;
                 // cout << "first peak: " << first_peak << " second_peak: " << second_peak << endl;
-                for(int k = j; k >= i; k--) {
-                    if(peaks_type[k] == -1) {
-                        int delta = min_peak - a_vec[peaks_location[k]];
-                        // cout << "k: " << k << " minimum: " << a_vec[peaks_location[k]] << " delta: " << delta << endl;
-                        if (delta > d) {
-                            d = delta;
-                        }
-                    }
+
+                int delta = min(first_peak, second_peak) - min_delta;
+                // cout << "k: " << k << " minimum: " << a_vec[peaks_location[k]] << " delta: " << delta << endl;
+                if (delta > d) {
+                    d = delta;
                 }
 
                 i = j - 1;
                 // cout << "new i set to: " << i << endl;
                 break;
-            }   
+            } else if(peaks_type[j] == -1) {
+                if(second_peak < min_delta) {
+                    min_delta = second_peak;
+                }
+            } else if(j == peaks_location.size() - 1) {
+                i = j - 1;
+                break;
+            }
         }
         // cout << "closing i: " << i << endl;
     }
@@ -191,30 +194,33 @@ int deep(vector<int> &non_squeezed_input) {
         
         int first_peak = a_vec[peaks_location[i]];
 
-
+        int min_delta = numeric_limits<int>::max();
         for(int j = i - 1; j >= 0; j--) {
             
             // cout << "j: " << j << " peaks_location[j]: " << peaks_location[j] << endl;
             int second_peak = a_vec[peaks_location[j]];
-            int min_peak = min(first_peak, second_peak);
             if(peaks_type[j] == 1 && second_peak >= first_peak) {
                 
                 // cout << "will loop from " << peaks_location[j] << " (j: " << j << ") to " << peaks_location[i] << "(i: " << i<< ")" << endl;
                 // cout << "first peak: " << first_peak << " second_peak: " << second_peak << endl;
-                for(int k = i; k >= j; k--) {
-                    if(peaks_type[k] == -1) {
-                        int delta = min_peak - a_vec[peaks_location[k]];
-                        // cout << "k: " << k << " minimum: " << a_vec[peaks_location[k]] << " delta: " << delta << endl;
-                        if (delta > d) {
-                            d = delta;
-                        }
-                    }
+                int delta = min(first_peak, second_peak) - min_delta;
+                // cout << "k: " << k << " minimum: " << a_vec[peaks_location[k]] << " delta: " << delta << endl;
+                if (delta > d) {
+                    d = delta;
                 }
 
                 i = j + 1;
                 // cout << "new i set to: " << i << endl;
                 break;
-            }   
+            }  else if(peaks_type[j] == -1) {
+                if(second_peak < min_delta) {
+                    min_delta = second_peak;
+                }
+            } else if(j == 0) {
+                i = j + 1;
+                break;
+            }
+
         }
         // cout << "closing i: " << i << endl;
     }
