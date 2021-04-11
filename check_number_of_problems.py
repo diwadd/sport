@@ -5,7 +5,7 @@ cwd = os.getcwd()
 files = glob.glob(cwd + "/*")
 
 valid_extensions = [".cpp", ".go", ".py", ".kt"]
-invalid_prefixes = ["cf_", "tc_", "cc_", "co_", "gks_"]
+invalid_prefixes = ["at_", "cf_", "tc_", "cc_", "co_", "gks_", "gcj_"]
 d = set()
 for i in range(len(files)):
 
