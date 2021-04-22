@@ -5,31 +5,6 @@ typedef long long int lli;
 typedef unsigned long long int ulli;
 typedef long double ld;
 
-void left_just(string &s, int n, char c = ' ') {
-    while(s.length() < n) {
-        s = c + s;
-    }
-}
-
-template<typename T> void print_vector(vector<T> &vec) {
-
-    int n = vec.size();
-    for(int i = 0; i < n; i++) {
-        if(i == n - 1)
-            cout << vec[i];
-        else
-            cout << vec[i] << " ";
-    }
-    cout << "\n";
-}
-
-template<typename T> void print_matrix(vector<vector<T>> &mat) {
-    for(int i = 0; i < mat.size(); i++) {
-        print_vector(mat[i]);
-    }
-}
-
-
 int main() {
 
     ios_base::sync_with_stdio(0);
@@ -51,8 +26,6 @@ int main() {
 
         int n = s.size();
 
-        // cout << "n: " << n << endl;
-
         bool is_ok = true;
         for(int i = 0; i <= n/2; i++) {
             if(s[i] != s[n-1-i] && (s[i] != '?' && s[n-1-i] != '?')) {
@@ -62,17 +35,13 @@ int main() {
         }
 
         if(is_ok == false) {
-            // cout << "--> rock" << endl;
             cout << "-1\n";
             continue;
         }
 
-        int mid = n/2;
-        if(n % 2 == 0) {
-            mid--;
-        }
 
         if (n % 2 != 0) {
+            int mid = n/2;
             if(s[mid] == '?') {
                 if(a % 2 != 0 && b % 2 == 0) {
                     a--;
@@ -91,15 +60,15 @@ int main() {
             }
         }
 
+        int mid = n/2 - 1;
+
         for(int i = 0; i <= mid; i++) {
 
             if(i == n-1-i) {
                 continue;
             } else if(s[i] == s[n-1-i] && (s[i] == '0' && s[n-i-1] == '0')) {
-                // cout << "a-- i:" << i << endl;
                 a -= 2;
             } else if(s[i] == s[n-1-i] && (s[i] == '1' && s[n-i-1] == '1')) {
-                // cout << "b-- i: " << i << endl;
                 b -= 2;
             }
         }
@@ -107,7 +76,6 @@ int main() {
 
         for(int i = 0; i <= mid; i++) {
 
-            // cout << "i: " << i << " --> s: " << s << " " << a << " " << b << " n: " << s.size() << endl;
             if(i == n-1-i) {
                 continue;
             } else if(s[i] == '?' && s[n-1-i] == '0') {
@@ -130,7 +98,11 @@ int main() {
                     b -= 2;
                     s[n-1-i] = '1';
                 }
-            } else if(s[i] == '?' && s[n-1-i] == '?') {
+            } 
+        }
+
+        for(int i = 0; i <= mid; i++) {
+            if(s[i] == '?' && s[n-1-i] == '?') {
                 if(a >= b && a > 1) {
                     a -= 2;
                     s[i] = '0';
@@ -143,8 +115,6 @@ int main() {
             }
         }
 
-        // cout << "s: " << s << " " << a << " " << b << " n: " << s.size() << endl;
-
         int la = 0;
         int lb = 0;
 
@@ -155,7 +125,6 @@ int main() {
                 lb++;
         }
 
-
         if(is_ok == false) {
             cout << "-1\n";
         } else {
@@ -165,9 +134,5 @@ int main() {
                 cout << "-1\n";
             }
         }
-
-
     }
-
-
 }
