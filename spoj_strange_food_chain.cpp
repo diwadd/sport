@@ -189,6 +189,14 @@ template<typename T> bool same_component(Vertex<T> &u, Vertex<T> &v) {
 
 }
 
+void print_vertex(vector<Vertex<int>> &vertex_list) {
+    
+    for(int i = 0; i < vertex_list.size(); i++) {
+        cout << vertex_list[i].m_parent << " ";
+    }
+    cout << endl;
+}
+
 
 int main() {
 
@@ -205,7 +213,6 @@ int main() {
 
         int MAX_NUMBER_OF_VERTICES = N + 1;
         vector<Vertex<int>> vertex_list(MAX_NUMBER_OF_VERTICES, Vertex<int>(-1));
-        vector<int> abc = {0, 0, 0};
 
         vector<int> type = {-1, -1, -1};
 
@@ -215,8 +222,7 @@ int main() {
             int d, x, y;
             cin >> d >> x >> y;
 
-            if(x > N || y > N) {
-                // cout << "k: " << k << " is false.\n";
+            if(x > N || y > N || x < 1 || y < 1) {
                 res++;
                 continue;
             }
@@ -224,57 +230,53 @@ int main() {
             x--;
             y--;
 
-            if (vertex_list[x].m_parent == nullptr) {
-                make_set(vertex_list[x]);
+            if (vertex_list.at(x).m_parent == nullptr) {
+                make_set(vertex_list.at(x));
             }
 
-            if (vertex_list[y].m_parent == nullptr) {
-                make_set(vertex_list[y]);
+            if (vertex_list.at(y).m_parent == nullptr) {
+                make_set(vertex_list.at(y));
             }
 
             if(d == 1) {
 
-                int kx = find_set(vertex_list[x]).m_key;
-                int ky = find_set(vertex_list[y]).m_key;
+                int kx = find_set(vertex_list.at(x)).m_key;
+                int ky = find_set(vertex_list.at(y)).m_key;
 
                 if(kx == -1 && ky == -1) {
-                    if(abc[0] == 0) {
-                        vertex_list[x].m_key = 0;
-                        vertex_list[y].m_key = 0;
-                        union_func(vertex_list[x], vertex_list[y]);
-                        abc[0] = 1;
+                    if(type[0] == -1) {
+                        vertex_list.at(x).m_key = 0;
+                        vertex_list.at(y).m_key = 0;
+                        union_func(vertex_list.at(x), vertex_list.at(y));
                         type[0] = x;
-                    } else if(abc[1] == 0) {
-                        vertex_list[x].m_key = 1;
-                        vertex_list[y].m_key = 1;
-                        union_func(vertex_list[x], vertex_list[y]);
-                        abc[1] = 1;
+                    } else if(type[1] == -1) {
+                        vertex_list.at(x).m_key = 1;
+                        vertex_list.at(y).m_key = 1;
+                        union_func(vertex_list.at(x), vertex_list.at(y));
                         type[1] = x;
-                    } else if(abc[2] == 0) {
-                        vertex_list[x].m_key = 2;
-                        vertex_list[y].m_key = 2;
-                        union_func(vertex_list[x], vertex_list[y]);
-                        abc[2] = 1;
+                    } else if(type[2] == -1) {
+                        vertex_list.at(x).m_key = 2;
+                        vertex_list.at(y).m_key = 2;
+                        union_func(vertex_list.at(x), vertex_list.at(y));
                         type[2] = x; 
                     } else {
-                        vertex_list[x].m_key = 0;
-                        vertex_list[y].m_key = 0;
-                        union_func(vertex_list[type[0]], vertex_list[x]);
-                        union_func(vertex_list[type[0]], vertex_list[y]);
+                        vertex_list.at(x).m_key = 0;
+                        vertex_list.at(y).m_key = 0;
+                        union_func(vertex_list[type[0]], vertex_list.at(x));
+                        union_func(vertex_list[type[0]], vertex_list.at(y));
                     }
                 } else if(kx != -1 && ky == -1) {
-                    vertex_list[x].m_key = vertex_list[y].m_key;
-                    union_func(vertex_list[x], vertex_list[y]);
+                    vertex_list.at(y).m_key = vertex_list.at(x).m_key;
+                    union_func(vertex_list.at(x), vertex_list.at(y));
                 } else if(kx == -1 && ky != -1) {
-                    vertex_list[y].m_key = vertex_list[x].m_key;
-                    union_func(vertex_list[x], vertex_list[y]);  
+                    vertex_list.at(x).m_key = vertex_list.at(y).m_key;
+                    union_func(vertex_list.at(x), vertex_list.at(y));  
                 } else if(kx != -1 && ky != -1) {
 
                     if(kx == ky) {
                         continue;
                     } else {
                         res++;
-                        // cout << "k: " << k << " is false.\n";
                     }
 
                 }
@@ -282,53 +284,66 @@ int main() {
 
             } else if (d == 2) {
 
-                int kx = find_set(vertex_list[x]).m_key;
-                int ky = find_set(vertex_list[y]).m_key;
+                int kx = find_set(vertex_list.at(x)).m_key;
+                int ky = find_set(vertex_list.at(y)).m_key;
 
                 if(kx == -1 && ky == -1) {
 
-                    vertex_list[x].m_key = 0;
-                    vertex_list[y].m_key = 1;
-                    if(type[0] == -1)
+                    vertex_list.at(x).m_key = 0;
+                    vertex_list.at(y).m_key = 1;
+
+                    if(type[0] == -1) {
                         type[0] = x;
-                    if(type[1] == -1)
+                    } else {
+                        union_func(vertex_list[type[0]], vertex_list.at(x));
+                    } 
+                    
+                    if(type[1] == -1) {
                         type[1] = y;
+                    } else {
+                        union_func(vertex_list[type[1]], vertex_list.at(y));
+                    }
 
                 } else if(kx != -1 && ky == -1) {
 
-                    int nt = (vertex_list[x].m_key + 1) % (2 + 1);
-                    vertex_list[y].m_key = nt;
+                    int nt = (vertex_list.at(x).m_key + 1) % (2 + 1);
+                    vertex_list.at(y).m_key = nt;
 
                     if(type[nt] == -1) {
                         type[nt] = y;
                     } else {
-                        union_func(vertex_list[type[nt]], vertex_list[y]);
+                        union_func(vertex_list[type[nt]], vertex_list.at(y));
                     }
 
 
                 } else if(kx == -1 && ky != -1) {
 
+                    int nt;
+                    if (vertex_list.at(y).m_key == 0)
+                        nt = 2;
+                    else if (vertex_list.at(y).m_key == 1)
+                        nt = 0;
+                    else if (vertex_list.at(y).m_key == 2)
+                        nt = 1;
 
-                    int nt = (vertex_list[y].m_key - 1) % (2 + 1);
-                    vertex_list[x].m_key = nt;
+                    vertex_list.at(x).m_key = nt;
 
                     if(type[nt] == -1) {
                         type[nt] = x;
                     } else {
-                        union_func(vertex_list[type[nt]], vertex_list[x]);
+                        union_func(vertex_list[type[nt]], vertex_list.at(x));
                     }
 
 
                 } else if(kx != -1 && ky != -1) {
 
-                    int k1 = vertex_list[x].m_key;
-                    int k2 = vertex_list[y].m_key;
+                    int k1 = vertex_list.at(x).m_key;
+                    int k2 = vertex_list.at(y).m_key;
 
                     if ( (k1 == 0 && k2 == 1) || (k1 == 1 && k2 == 2) || (k1 == 2 && k2 == 0)) {
                         continue;
                     } else {
                         res++;
-                        // cout << "k: " << k << " is false.\n";
                     }
                 }
                 
@@ -337,7 +352,6 @@ int main() {
             }
 
         }
-
 
         cout << res << "\n";
 
