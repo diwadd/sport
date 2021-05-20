@@ -29,6 +29,7 @@ template<typename T> void print_matrix(vector<vector<T>> &mat) {
     }
 }
 
+
 template<typename T> unsigned int binary_search(vector<T> &v, T target) {
 
     unsigned int left = 0;
@@ -46,7 +47,6 @@ template<typename T> unsigned int binary_search(vector<T> &v, T target) {
     return left;
 }
 
-
 int main() {
 
     ios_base::sync_with_stdio(0);
@@ -56,26 +56,19 @@ int main() {
     cin >> T;
  
     int MAX_M = 500000 + 7;
-    int DEFAULT_SIZE = 40;
-    vector<vector<int>> factors(MAX_M, vector<int>());
-    for(int i = 0; i < MAX_M; i++) {
-        factors.reserve(DEFAULT_SIZE);
+    int INIT_SPACE = 10;
+    vector<vector<int>> factors(MAX_M, vector<int>(1, 1));
+    for(int i = 0; i < factors.size(); i++) {
+        factors[i].reserve(INIT_SPACE);
     }
 
-    for(int m = 1; m < MAX_M; m++) {
+    for(int m = 2; m < MAX_M; m++) {
 
-
-        for(int i = 1; i < floor(sqrt(m)) + 1; i++) {
-            if(m % i == 0) {
-                if(m / i == i) {
-                    factors[m].push_back(i);
-                } else {
-                    factors[m].push_back(i);
-                    factors[m].push_back(m / i);
-                }
-            }
+        int j = m;
+        while(j <= MAX_M) {
+            factors[j].push_back(m);
+            j += m;
         }
-        sort(factors[m].begin(), factors[m].end());
     }
 
     for(int t = 0; t < T; t++) {
