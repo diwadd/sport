@@ -50,7 +50,7 @@ def compare_two_solutions(cmd_one, cmd_two, same_input):
 
 
 if __name__ == "__main__":
-    cmd_one = "./cc_smallest_kmp_xe"
+    cmd_one = "./temp2"
     cmd_two = "./temp"
 
     n = 100000
