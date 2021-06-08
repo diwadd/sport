@@ -13,29 +13,31 @@ def execute_solution(cmd, input_string):
     return solution_output
 
 
+def get_whlrud():
+
+    max_string_length = 6
+    while True:
+        w = random.randint(1, max_string_length)
+        h = random.randint(1, max_string_length)
+
+        l = random.randint(1, w)
+        r = random.randint(1, w)
+
+        u = random.randint(1, h)
+        d = random.randint(1, h)
+
+        if 1 <= l and l <= r and r <= w and 1 <= u and u <= d and d <= h and l != 1 and u != 1 and r != w and d != w:
+            return w, h, l, u, r, d
+
+
+
 def prepare_input():
 
     # Needs to be adjusted for each considered problem.
     # Should output the input for the solution.
+    w, h, l, u, r, d = get_whlrud()
 
-    base = 'abcdefghijklmnopqrstuvwxyz'
-    max_string_length = 1000
-    ns = random.randint(1, max_string_length)
-    np = random.randint(1, ns)
-
-    s = []
-    p = []
-    for i in range(ns):
-        c = random.choice(base)
-        s.append(c)
-        p.append(c)
-
-    random.shuffle(p)
-
-    s = ''.join(s)
-    p = ''.join(p[0:np])
-
-    return f"1\n{s}\n{p}\n"
+    return f"1\n{w} {h} {l} {u} {r} {d}\n"
 
 
 def compare_two_solutions(cmd_one, cmd_two, same_input):
@@ -50,8 +52,8 @@ def compare_two_solutions(cmd_one, cmd_two, same_input):
 
 
 if __name__ == "__main__":
-    cmd_one = "./temp2"
-    cmd_two = "./temp"
+    cmd_one = "./gks_2020_round_b_wandering_robot.py"
+    cmd_two = "./ttt"
 
     n = 100000
     for i in range(n):

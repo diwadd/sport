@@ -40,6 +40,6 @@ for t in range(1, tests + 1):
 
     print(f"Case #{t}: {prob[h][w]}")
 
-    # print("--- --- ---")
-    # for row in prob:
-    #     print(row)
+    print("--- --- ---")
+    for row in prob:
+        print(row)
