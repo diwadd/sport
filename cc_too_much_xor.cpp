@@ -93,13 +93,13 @@ bool make_even(vector<int> & a_vec, vector<Triple>& res) {
         cout << N << "\n";
 
         for(int i = 1; i < N; i = i + 2) {
-            cout << first << " " << second << " " << i << endl;
-            res.push_back(Triple(first, second, i));
+            cout << first+1 << " " << second+1 << " " << i+1 << endl;
+            // res.push_back(Triple(first+1, second+1, i+1));
         }
 
         for(int i = 0; i < N; i = i + 2) {
-            cout << "1 3 " << i << endl;
-            res.push_back(Triple(1, 3, i));
+            cout << "2 4 " << i+1 << endl;
+            // res.push_back(Triple(2, 4, i+1));
         }
         return true;
     } else {
@@ -157,13 +157,13 @@ bool make_odd(vector<int> & a_vec, vector<Triple>& res) {
         cout << N << "\n";
 
         for(int i = 0; i < N; i = i + 2) {
-            cout << first << " " << second << " " << i << endl;
-            res.push_back(Triple(first, second, i));
+            cout << first+1 << " " << second+1 << " " << i+1 << endl;
+            // res.push_back(Triple(first+1, second+1, i+1));
         }
 
         for(int i = 1; i < N; i = i + 2) {
-            cout << "0 2 " << i << endl;
-            res.push_back(Triple(0, 2, i));
+            cout << "1 3 " << i+1 << endl;
+            // res.push_back(Triple(1, 3, i+1));
         }
         return true;
     } else {
@@ -272,8 +272,8 @@ int main() {
                 else
                     cout << N/2+1 << "\n";
 
-                for(int i = 0; i < N; i = i + 2) {
-                    cout << "1 3 " << i << "\n";
+                for(int i = 1; i < N; i = i + 2) {
+                    cout << "1 3 " << i+1 << "\n";
                 }
 
             } else {
@@ -285,19 +285,19 @@ int main() {
                 }
 
 
-                vector<int> sol = a_vec;
+                // vector<int> sol = a_vec;
 
-                for(int i = 0; i < res.size(); i++) {
+                // for(int i = 0; i < res.size(); i++) {
 
-                    int a = res[i].a;
-                    int b = res[i].b;
-                    int c = res[i].c;
+                //     int a = res[i].a-1;
+                //     int b = res[i].b-1;
+                //     int c = res[i].c-1;
 
-                    sol[c] = sol[a] ^ sol[b];
-                }
+                //     sol[c] = sol[a] ^ sol[b];
+                // }
 
-                cout << "res.size(): " << res.size() << " --- --- ---\n";
-                print_vector(sol);
+                // cout << "res.size(): " << res.size() << " --- --- ---\n";
+                // print_vector(sol);
 
             }
 
