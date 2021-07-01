@@ -53,33 +53,6 @@ bool make_even(vector<int> & a_vec, vector<Triple>& res) {
     int first = -1;
     int second = -1;
 
-    // for(int parity = 0; parity <= 1; parity++) {
-
-
-    //     for(int i = 0; i < N; i = i + 2) {
-    //         if(a_vec[i] % 2 == parity) {
-    //             first = i;
-    //             break;
-    //         }
-    //     }
-
-    //     for(int i = 0; i < N; i = i + 2) {
-    //         if(a_vec[i] % 2 == parity && i != first && a_vec[i] != a_vec[first]) {
-    //             second = i;
-    //             break;
-    //         }
-    //     }
-
-    //     cout << "even: " << first << " " << second << endl;
-    //     if(first != -1 && second != -1) {
-    //         break;
-    //     } else {
-    //         first = -1;
-    //         second = -1;
-    //     }
-
-    // }
-
     first = 0;
     for(int i = 2; i < N; i = i + 2) {
         if(a_vec[i] != a_vec[first]) {
@@ -93,12 +66,12 @@ bool make_even(vector<int> & a_vec, vector<Triple>& res) {
         cout << N << "\n";
 
         for(int i = 1; i < N; i = i + 2) {
-            cout << first+1 << " " << second+1 << " " << i+1 << endl;
+            cout << first+1 << " " << second+1 << " " << i+1 << "\n";
             // res.push_back(Triple(first+1, second+1, i+1));
         }
 
         for(int i = 0; i < N; i = i + 2) {
-            cout << "2 4 " << i+1 << endl;
+            cout << "2 4 " << i+1 << "\n";
             // res.push_back(Triple(2, 4, i+1));
         }
         return true;
@@ -115,34 +88,6 @@ bool make_odd(vector<int> & a_vec, vector<Triple>& res) {
     int first = -1;
     int second = -1;
 
-
-    // for(int parity = 0; parity <= 1; parity++) {
-
-
-    //     for(int i = 1; i < N; i = i + 2) {
-    //         if(a_vec[i] % 2 == parity) {
-    //             first = i;
-    //             break;
-    //         }
-    //     }
-
-    //     for(int i = 1; i < N; i = i + 2) {
-    //         if(a_vec[i] % 2 == parity && i != first && a_vec[i] != a_vec[first]) {
-    //             second = i;
-    //             break;
-    //         }
-    //     }
-
-    //     cout << "odd: " << first << " " << second << endl;
-    //     if(first != -1 && second != -1) {
-    //         break;
-    //     } else {
-    //         first = -1;
-    //         second = -1;
-    //     }
-
-    // }
-
     first = 1;
     for(int i = 3; i < N; i = i + 2) {
         if(a_vec[i] != a_vec[first]) {
@@ -157,12 +102,12 @@ bool make_odd(vector<int> & a_vec, vector<Triple>& res) {
         cout << N << "\n";
 
         for(int i = 0; i < N; i = i + 2) {
-            cout << first+1 << " " << second+1 << " " << i+1 << endl;
+            cout << first+1 << " " << second+1 << " " << i+1 << "\n";
             // res.push_back(Triple(first+1, second+1, i+1));
         }
 
         for(int i = 1; i < N; i = i + 2) {
-            cout << "1 3 " << i+1 << endl;
+            cout << "1 3 " << i+1 << "\n";
             // res.push_back(Triple(1, 3, i+1));
         }
         return true;
@@ -191,8 +136,6 @@ int main() {
             cin >> a;
         }
 
-        // print_vector(a_vec);
-
         if(N == 1) {
             cout << "0\n";
         } else if(N == 2) {
@@ -213,7 +156,6 @@ int main() {
                 continue;
             }
 
-
             vector<Triple> triples = {Triple(0, 1, 2),
                                       Triple(1, 2, 0),
                                       Triple(0, 2, 1)};
@@ -222,9 +164,6 @@ int main() {
             for(auto & trip : triples) {
                 vector<int> v = a_vec;
                 apply_operation(v, trip);
-
-                // cout << " --- --- --- \n";
-                // print_vector(v);
 
                 if(v[0] == v[2] && v[0] != v[1]) {
                     is_ok = true;
@@ -270,7 +209,7 @@ int main() {
                 if(N % 2  == 0)
                     cout << N/2 << "\n";
                 else
-                    cout << N/2+1 << "\n";
+                    cout << N/2 << "\n";
 
                 for(int i = 1; i < N; i = i + 2) {
                     cout << "1 3 " << i+1 << "\n";
@@ -284,20 +223,6 @@ int main() {
                     make_odd(a_vec, res);
                 }
 
-
-                // vector<int> sol = a_vec;
-
-                // for(int i = 0; i < res.size(); i++) {
-
-                //     int a = res[i].a-1;
-                //     int b = res[i].b-1;
-                //     int c = res[i].c-1;
-
-                //     sol[c] = sol[a] ^ sol[b];
-                // }
-
-                // cout << "res.size(): " << res.size() << " --- --- ---\n";
-                // print_vector(sol);
 
             }
 
